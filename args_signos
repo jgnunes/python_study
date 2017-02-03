@@ -1,0 +1,87 @@
+# script que deve ser rodado no prompt de comando sob a forma:
+# python args_signos.py --data_de_nascimento dd/mm/year
+
+import argparse 
+import sys
+
+
+def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--data_de_nascimento', type = str, 
+						help = 'dia/mês/ano... Exemplo: 01/03/1993')
+	args = parser.parse_args()
+	sys.stdout.write(' '.join(['signo:', signo(args)]))
+	
+	
+def signo(args):
+    # a lista l contém as três partes da data, separadas pelo caracter '/' --> l = [dia, mês, ano]
+	l = args.data_de_nascimento.rsplit('/')
+    # levanta uma exceção se os valores da data de nascimento não fizerem sentido (ValueError) 
+	if (l[0] == '') or (int(l[0]) < 0) or (int(l[0])>31) or (l[1] == '') or (int(l[1]) < 0) or (int(l[1])>12):
+		raise ValueError('Ops, data de nascimento ' + args.data_de_nascimento + ' inválida. Por favor, tente novamente com outra data.')
+	# a partir daqui, iniciam os testes condicionais que vão determinar qual é o signo 
+    if l[1] in ['01','1']:
+		if int(l[0]) >= 20:
+			return 'Aquário'
+		elif int(l[0]) < 20:
+			return 'Capricórnio'
+	if l[1] in ['02','2']:
+		if int(l[0]) >= 19:
+			return 'Peixes'
+		elif int(l[0]) < 19:
+			return 'Aquário'
+	if l[1] in ['03','3']:
+		if int(l[0]) >= 21:
+			return 'Áries'
+		elif int(l[0]) < 21:
+			return 'Peixes'
+	if l[1] in ['04','4']:
+		if int(l[0]) >= 20:
+			return 'Touro'
+		elif int(l[0]) < 20:
+			return 'Áries'
+	if l[1] in ['05','5']:
+		if int(l[0]) >= 21:
+			return 'Gêmeos'
+		elif int(l[0]) < 21:
+			return 'Touro'
+	if l[1] in ['06','6']:
+		if int(l[0]) >= 22:
+			return 'Câncer'
+		elif int(l[0]) < 22:
+			return 'Gêmeos'
+	if l[1] in ['07','7']:
+		if int(l[0]) >= 23:
+			return 'Leão'
+		elif int(l[0]) < 23:
+			return 'Câncer'
+	if l[1] in ['08''8']:
+		if int(l[0]) >= 23:
+			return 'Virgem'
+		elif int(l[0]) < 23:
+			return 'Leão'
+	if l[1] in ['09','9']:
+		if int(l[0]) >= 23:
+			return 'Libra'
+		elif int(l[0]) < 23:
+			return 'Virgem'
+	if l[1] == '10':
+		if int(l[0]) >= 23:
+			return 'Escorpião'
+		elif int(l[0]) < 23:
+			return 'Libra'
+	if l[1] == '11':
+		if int(l[0]) >= 22:
+			return 'Sagitário'
+		elif int(l[0]) < 22:
+			return 'Escorpião'
+	if l[1] == '12':
+		if int(l[0]) >= 22:
+			return 'Capricórnio'
+		elif int(l[0]) < 23:
+			return 'Sagitário'
+
+# garante que o script só vai ser executado se for o main process, ou seja, se for invocado diretamente (como, por 
+# exemplo, do prompt de comando: "python args_signo.py --data_de_nascimento dd/mm/year")
+if __name__ == '__main__':
+	main()
