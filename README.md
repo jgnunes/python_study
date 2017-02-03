@@ -1,2 +1,2 @@
 # python_study
-A bunch of scripts written over my studies on Python
+A bunch of scripts written during my studies on Python
